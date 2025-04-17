@@ -45,6 +45,16 @@ class Enemy{
 
     update(){
         this.x = this.x + 0.2;
+        console.log("la X: ",this.x);
+        
+        // Collider para el game over
+        if(this.x >= 500){
+            console.log("LOSE...");
+            gameOver = true;
+            ctx.font = "100px Arial"
+            ctx.fillStyle = "red";
+            ctx.fillText("GAME OVER", 350, 250);
+        }
     }
 
     draw() {
@@ -81,11 +91,17 @@ function animate(){
         console.log("binario");
 
     }
+    
     // console.log(`${posBinarios.dieciseis} ${posBinarios.ocho} ${posBinarios.cuatro} ${posBinarios.dos} ${posBinarios.uno}`);
     // console.log((posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0)));
 
     sumaBinaria = (posBinarios.treintaydos * (2**5) + posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0))
     console.log("sumaBinaria",sumaBinaria);
+
+    // if(rectangle.x >= 500){
+    //     console.log("LOSE...");
+    //     gameOver = true;
+    // }
 
     if(gameOver === false){
         requestAnimationFrame(animate)
@@ -94,6 +110,7 @@ function animate(){
     }
 };
 
+// comparacion del binario con el decimal
 const boton = document.querySelector("button");
 boton.addEventListener("click", () => {
     if (sumaBinaria === rectangle.randomValue){
