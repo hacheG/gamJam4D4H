@@ -10,7 +10,7 @@
 };
 
 let gameOver = false;
-let conteo = 5;
+let conteo = 10;
 let cuadro = 20;
 const fuente = "Silkscreen"
 
@@ -48,7 +48,7 @@ function dibujaCuadro(){
     equis = 20;
     for(let i = conteo; i > 0; i--){
         // Dibujando los cuadros que representan la cantidad de paredes que faltan
-        ctx2.strokeStyle = "blue";
+        ctx2.strokeStyle = "green";
         ctx2.strokeRect(equis,470,20,20);
         equis +=30;
 
@@ -74,7 +74,7 @@ class Enemy{
     constructor(){
         this.x = 10;
         this.y = 30;
-        this.randomValue = Math.floor(Math.random() * 32);
+        this.randomValue = Math.floor(Math.random() * 63);
 
         this.signalX = this.x;
         this.signalY = this.y;
@@ -220,7 +220,7 @@ boton.addEventListener("click", () => {
     if (sumaBinaria === rectangle.randomValue){
         console.log("iguales");
         spawn += 10;
-        rectangle.randomValue = Math.floor(Math.random() * 32);
+        rectangle.randomValue = Math.floor(Math.random() * 63);
         console.log("spawn", spawn);
         rectangle.x = spawn;
         conteo--
