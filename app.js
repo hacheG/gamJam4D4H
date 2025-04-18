@@ -54,6 +54,12 @@ class Enemy{
             ctx.font = "100px Arial"
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 350, 250);
+            setTimeout(() => {
+                const newURL = "/gameOver.html";
+                history.pushState(null,"",newURL);
+                location.reload();
+                
+            }, 3000);
         }
     }
 
