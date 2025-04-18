@@ -27,6 +27,7 @@
     <div class="container-button">
         <button>seleccionar</button>
         <button><a href="game.html">Estoy Preparado</a></button>
+        <a class="instruction" href="instruccion.html"></a>
     </div>
     <a href="gameOver.html"></a>
 
@@ -37,9 +38,6 @@
     uno : 0,
     dos : 0,
     cuatro : 0,
-    // ocho : 0,
-    // dieciseis : 0,
-    // treintaydos : 0,
 }
 let gameOver = false;
 
@@ -82,21 +80,14 @@ class Enemy{
         
         // Collider para el game over
         if(this.x >= 500){
-            console.log("LOSE...");
             gameOver = true;
             ctx.font = "100px Arial"
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 350, 250);
             setTimeout(() => {
-                const anchor = document.querySelector("a");
+                const anchor = document.querySelector(".instruction");
                 anchor.click()
-                // const originURL = location.origin
-                // const newURL = originURL+"/gameOver.html";
-                // const newURL = "/gameOver.html";
-                // history.pushState(null,"",newURL);
-                // location.reload();
-                
-            }, 3000);
+            }, 2000);
         }
     }
 
@@ -160,11 +151,6 @@ function animate(){
 
     sumaBinaria = ( (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0)));
     console.log("sumaBinaria",sumaBinaria);
-
-    // if(rectangle.x >= 500){
-    //     console.log("LOSE...");
-    //     gameOver = true;
-    // }
 
     if(gameOver === false){
         requestAnimationFrame(animate)
