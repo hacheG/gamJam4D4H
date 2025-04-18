@@ -12,6 +12,7 @@
 let gameOver = false;
 let conteo = 5;
 let cuadro = 20;
+const fuente = "Silkscreen"
 
 const binary = document.querySelectorAll("#binary");
 
@@ -27,33 +28,47 @@ binary.forEach( (div) => {
     })
 })
 
+// Canvas primario
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
 canvas.width = 700;
 canvas.height = 500;
 
 // Canvas secundario para contar las paredes que faltan
 const paredesCanvas = document.querySelector("#paredesCanvas");
 const ctx2 = paredesCanvas.getContext("2d");
-
 paredesCanvas.width = 700;
 paredesCanvas.height = 500;
 
 let equis = 20;
+
+// Funcion que dibuja la cantidad de paredes que faltan
 function dibujaCuadro(){
     ctx2.clearRect(0,0,canvas.width,canvas.height);
     equis = 20;
     for(let i = conteo; i > 0; i--){
-        console.log(i);
-        
+        // Dibujando los cuadros que representan la cantidad de paredes que faltan
         ctx2.strokeStyle = "blue";
-        ctx2.strokeRect(equis,20,20,20);
-        equis +=30
+        ctx2.strokeRect(equis,470,20,20);
+        equis +=30;
+
+        ctx2.font = `20px ${fuente}` ;
+        ctx2.fillText(`quedan ${conteo} paredes`, 20, 460);
     };
-}
+};
+
 dibujaCuadro();
+
+// Imagenes
+const logoUN = new Image();
+logoUN.src = "Assets/UNGAMES.png";
+// logoUN.src = "Assets/test.png";
+
+const gifPerro = new Image();
+gifPerro.src = "Assets/perroMov.gif";
+
+const perrito = new Image();
+perrito.src = "Assets/perrito1.png";
 
 class Enemy{
     constructor(){
@@ -77,7 +92,7 @@ class Enemy{
         if(this.x >= 500){
             console.log("LOSE...");
             gameOver = true;
-            ctx.font = "100px Arial"
+            ctx.font = `100px ${fuente}`;
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 350, 250);
             setTimeout(() => {
@@ -94,7 +109,7 @@ class Enemy{
 
         if(conteo === 0){
             gameOver = true;
-            ctx.font = "100px Arial"
+            ctx.font = `100px ${fuente}`;
             ctx.fillStyle = "blue";
             ctx.fillText("GANASTE", 350, 250);
             setTimeout(() => {
@@ -105,8 +120,9 @@ class Enemy{
     }
 
     draw() {
+        ctx.drawImage(logoUN, this.x, this.y, 100, 100);
         // cantidad de paredes que faltan
-        ctx.fillText(conteo, 650, 30);
+        // ctx.fillText(conteo, 650, 30);
 
         
         // for(let i = conteo; i > 0; i--){
@@ -134,11 +150,12 @@ class Enemy{
         ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
 
         // ubicacion del personaje
+        ctx.drawImage(perrito, 320, 280, 400, 200);
         ctx.strokeRect(550, 350, 50, 50);
 
         // numero en decimal
-        ctx.font = "30px Arial"
-        ctx.textAlign = "center"
+        ctx.font = `30px ${fuente}`;
+        ctx.textAlign = "center";
         ctx.strokeText(this.randomValue, this.x+20, this.y + 200);
 
     }
