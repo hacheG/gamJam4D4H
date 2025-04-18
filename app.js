@@ -1,4 +1,6 @@
 /** @type {HTMLCanvasElement} */
+console.log(location.origin);
+
 console.log(location.href);
 
  const posBinarios = {
