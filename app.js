@@ -156,7 +156,7 @@ class Enemy{
         // numero en decimal
         ctx.font = `30px ${fuente}`;
         ctx.textAlign = "center";
-        ctx.strokeText(this.randomValue, this.x+20, this.y + 200);
+        ctx.fillText(this.randomValue, this.x+20, this.y + 200);
 
     }
 
