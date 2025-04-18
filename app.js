@@ -7,8 +7,10 @@
     ocho : 0,
     dieciseis : 0,
     treintaydos : 0,
-}
+};
+
 let gameOver = false;
+let conteo = 2;
 
 const binary = document.querySelectorAll("#binary");
 
@@ -45,7 +47,7 @@ class Enemy{
 
     update(){
         this.x = this.x + 0.2;
-        console.log("la X: ",this.x);
+        // console.log("la X: ",this.x);
         
         // Collider para el game over
         if(this.x >= 500){
@@ -55,7 +57,7 @@ class Enemy{
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 350, 250);
             setTimeout(() => {
-                const anchor = document.querySelector("a");
+                const anchor = document.querySelector(".gameOver");
                 anchor.click()
                 // const originURL = location.origin
                 // const newURL = originURL+"/gameOver.html";
@@ -63,6 +65,17 @@ class Enemy{
                 // history.pushState(null,"",newURL);
                 // location.reload();
                 
+            }, 3000);
+        }
+
+        if(conteo === 0){
+            gameOver = true;
+            ctx.font = "100px Arial"
+            ctx.fillStyle = "blue";
+            ctx.fillText("GANASTE", 350, 250);
+            setTimeout(() => {
+                const anchor = document.querySelector(".ganaste");
+                anchor.click()
             }, 3000);
         }
     }
@@ -106,7 +119,7 @@ function animate(){
     // console.log((posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0)));
 
     sumaBinaria = (posBinarios.treintaydos * (2**5) + posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0))
-    console.log("sumaBinaria",sumaBinaria);
+    // console.log("sumaBinaria",sumaBinaria);
 
     // if(rectangle.x >= 500){
     //     console.log("LOSE...");
@@ -129,6 +142,9 @@ boton.addEventListener("click", () => {
         rectangle.randomValue = Math.floor(Math.random() * 32);
         console.log("spawn", spawn);
         rectangle.x = spawn;
+        conteo--
+        console.log(conteo);
+        
     } else {
         console.log("NO iguales");
         spawn += 30;
