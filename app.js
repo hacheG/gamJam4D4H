@@ -1,9 +1,4 @@
 /** @type {HTMLCanvasElement} */
-console.log(location.origin);
-
-console.log(location.href);
-console.log(location);
-
 
  const posBinarios = {
     uno : 0,
@@ -60,10 +55,13 @@ class Enemy{
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 350, 250);
             setTimeout(() => {
-                const originURL = location.origin
-                const newURL = originURL+"/gameOver.html";
-                history.pushState(null,"",newURL);
-                location.reload();
+                const anchor = document.querySelector("a");
+                anchor.click()
+                // const originURL = location.origin
+                // const newURL = originURL+"/gameOver.html";
+                // const newURL = "/gameOver.html";
+                // history.pushState(null,"",newURL);
+                // location.reload();
                 
             }, 3000);
         }
