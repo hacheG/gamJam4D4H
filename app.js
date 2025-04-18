@@ -10,7 +10,8 @@
 };
 
 let gameOver = false;
-let conteo = 2;
+let conteo = 5;
+let cuadro = 20;
 
 const binary = document.querySelectorAll("#binary");
 
@@ -28,11 +29,31 @@ binary.forEach( (div) => {
 
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
 canvas.width = 700;
 canvas.height = 500;
+
+// Canvas secundario para contar las paredes que faltan
+const paredesCanvas = document.querySelector("#paredesCanvas");
+const ctx2 = paredesCanvas.getContext("2d");
+
+paredesCanvas.width = 700;
+paredesCanvas.height = 500;
+
+let equis = 20;
+function dibujaCuadro(){
+    ctx2.clearRect(0,0,canvas.width,canvas.height);
+    equis = 20;
+    for(let i = conteo; i > 0; i--){
+        console.log(i);
+        
+        ctx2.strokeStyle = "blue";
+        ctx2.strokeRect(equis,20,20,20);
+        equis +=30
+    };
+}
+dibujaCuadro();
 
 class Enemy{
     constructor(){
@@ -42,6 +63,9 @@ class Enemy{
 
         this.signalX = this.x;
         this.signalY = this.y;
+
+        
+        
 
     }
 
@@ -81,6 +105,24 @@ class Enemy{
     }
 
     draw() {
+        // cantidad de paredes que faltan
+        ctx.fillText(conteo, 650, 30);
+
+        
+        // for(let i = conteo; i > 0; i--){
+        //     console.log(i);
+        //     ctx.strokeStyle = "blueViolet";
+            
+            // ctx.strokeRect(20, 450, 10, 10);
+            // ctx.strokeRect(40, 450, 10, 10);
+        //     cuadro += 2
+            
+        // ctx.save();
+        // ctx.strokeStyle = "blueViolet";
+        // ctx.strokeRect(20, 450, 10, 10);
+        // ctx.restore();
+        // }
+        // ctx.strokeRect(20, 450, 10, 10);
         // Pared movil
         ctx.strokeStyle = "blueViolet";
         ctx.strokeRect(this.x, this.y, 45, 400);
@@ -101,11 +143,14 @@ class Enemy{
 
     }
 
+
+
 }
 
 const rectangle = new Enemy();
 let sumaBinaria;
 let spawn = 10;
+
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     rectangle.draw();
@@ -126,12 +171,31 @@ function animate(){
     //     gameOver = true;
     // }
 
+    // Dibujando la cantidad de paredes
+//     ctx.save();
+// for(let i = conteo; i > 0; i--){
+//     console.log(i);
+//     ctx.strokeStyle = "blueViolet";
+    
+//     ctx.strokeRect(20, 450, 10, 10);
+//     cuadro += 2
+    
+// }
+// ctx.restore();
+    
+    
+
+
     if(gameOver === false){
         requestAnimationFrame(animate)
     } else {
         requestAnimationFrame()
     }
 };
+
+// Dibujando la cantidad de paredes
+
+
 
 // comparacion del binario con el decimal
 const boton = document.querySelector("button");
@@ -144,6 +208,7 @@ boton.addEventListener("click", () => {
         rectangle.x = spawn;
         conteo--
         console.log(conteo);
+        dibujaCuadro()
         
     } else {
         console.log("NO iguales");
