@@ -12,7 +12,8 @@
 let gameOver = false;
 let conteo = 10;
 let cuadro = 20;
-const fuente = "Silkscreen"
+const fuente = "Silkscreen";
+let gameFrame = 0;
 
 const binary = document.querySelectorAll("#binary");
 
@@ -40,20 +41,20 @@ const ctx2 = paredesCanvas.getContext("2d");
 paredesCanvas.width = 700;
 paredesCanvas.height = 500;
 
-let equis = 20;
+// let equis = 20;
 
 // Funcion que dibuja la cantidad de paredes que faltan
 function dibujaCuadro(){
     ctx2.clearRect(0,0,canvas.width,canvas.height);
-    equis = 20;
+    equis = 40;
     for(let i = conteo; i > 0; i--){
         // Dibujando los cuadros que representan la cantidad de paredes que faltan
-        ctx2.strokeStyle = "green";
-        ctx2.strokeRect(equis,470,20,20);
+        ctx2.fillStyle = "#F0F0F0";
+        ctx2.fillRect(equis,5,20,20);
         equis +=30;
 
         ctx2.font = `20px ${fuente}` ;
-        ctx2.fillText(`quedan ${conteo} paredes`, 20, 460);
+        ctx2.fillText(`quedan ${conteo} paredes`, 40, 45);
     };
 };
 
@@ -68,23 +69,44 @@ const gifPerro = new Image();
 gifPerro.src = "Assets/perroMov.gif";
 
 const perrito = new Image();
-perrito.src = "Assets/perrito1.png";
+perrito.src = "Assets/spritesPerro.png";
+
+const bat = new Image();
+bat.src = "Assets/enemy1.png"
+
+const fondo = new Image();
+fondo.src = "Assets/Fondo72.png";
 
 class Enemy{
     constructor(){
         this.x = 10;
-        this.y = 30;
+        this.y = 60;
         this.randomValue = Math.floor(Math.random() * 63);
 
         this.signalX = this.x;
         this.signalY = this.y;
 
+        this.frame = 0;
+        this.enemyX = 0;
+        this.enemyY = 0;
+        this.enemyWidth = 1758/6;
+        this.enemyHeight = 155;
         
-        
+        this.frameDog = 0;
+        this.dogX = 0;
+        this.dogY = 0;
+        this.dogWidth = 6112/8;
+        this.dogHeight = 1284;
 
     }
 
     update(){
+        if(gameFrame % 3 === 0){
+            this.frame > 4 ? this.frame = 0 : this.frame++;
+            this.frameDog > 6 ? this.frameDog = 0 : this.frameDog++;
+        }
+        
+        
         this.x = this.x + 0.2;
         // console.log("la X: ",this.x);
         
@@ -120,7 +142,44 @@ class Enemy{
     }
 
     draw() {
-        ctx.drawImage(logoUN, this.x, this.y, 100, 100);
+        ctx.drawImage(fondo,
+            0,
+            0,
+            300,
+            214,
+            0,
+            0,
+            canvas.width, 
+            canvas.height);
+
+        ctx.drawImage(bat, 
+            this.enemyWidth * this.frame, 
+            this.enemyY, 
+            this.enemyWidth, 
+            this.enemyHeight, 
+            550, 
+            70, 
+            100, 
+            50);
+        ctx.drawImage(bat, 
+            this.enemyWidth * this.frame, 
+            this.enemyY, 
+            this.enemyWidth, 
+            this.enemyHeight, 
+            150, 
+            40, 
+            50, 
+            25);
+        ctx.drawImage(bat, 
+            this.enemyWidth * this.frame, 
+            this.enemyY, 
+            this.enemyWidth, 
+            this.enemyHeight, 
+            190, 
+            55, 
+            50, 
+            25)
+        // ctx.drawImage(logoUN, this.x, this.y, 100, 100);
         // cantidad de paredes que faltan
         // ctx.fillText(conteo, 650, 30);
 
@@ -150,8 +209,16 @@ class Enemy{
         ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
 
         // ubicacion del personaje
-        ctx.drawImage(perrito, 320, 280, 400, 200);
-        ctx.strokeRect(550, 350, 50, 50);
+        ctx.drawImage(perrito, 
+            this.dogWidth * this.frameDog, 
+            this.dogY, 
+            this.dogWidth, 
+            this.dogHeight,
+            550,
+            390,
+            50,
+            80);
+        ctx.strokeRect(550, 420, 50, 50);
 
         // numero en decimal
         ctx.font = `30px ${fuente}`;
@@ -172,6 +239,8 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     rectangle.draw();
     rectangle.update();
+    gameFrame++;
+
     if( (posBinarios.uno === 1) && (rectangle.randomValue === posBinarios.uno) ){
         console.log("binario");
 
@@ -236,3 +305,4 @@ boton.addEventListener("click", () => {
 
 
 animate();
+// dibujaCuadro();
