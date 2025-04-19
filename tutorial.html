@@ -147,14 +147,22 @@ canvas.height = window.innerHeight;
 canvas.width = 700;
 canvas.height = 500;
 
-// Enemy
+// Imagenes
 const fondo = new Image();
 fondo.src = "Assets/Fondo72.png";
 
+const perritoMira = new Image();
+perritoMira.src = "Assets/perritoMira.png";
+
+// Sonido
+const tutorialVersion1 = new Audio();
+tutorialVersion1.src = "Sonido/tutorialVer1.mp3";
+
+// Enemy
 class Enemy{
     constructor(){
         this.x = 10;
-        this.y = 30;
+        this.y = 60;
         this.randomValue = Math.floor(Math.random() * 5);
 
         this.signalX = this.x;
@@ -180,6 +188,17 @@ class Enemy{
     }
 
     draw() {
+        // Fondo
+        ctx.drawImage(fondo,
+            0,
+            0,
+            300,
+            214,
+            0,
+            0,
+            canvas.width, 
+            canvas.height);
+    
         // Pared movil
         ctx.strokeStyle = "blueViolet";
         ctx.strokeRect(this.x, this.y, 45, 400);
@@ -191,6 +210,12 @@ class Enemy{
         ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
 
         // ubicacion del personaje
+        ctx.drawImage(perritoMira,
+            500,
+            310,
+            380,
+            270
+        );
         ctx.strokeRect(550, 350, 50, 50);
 
         // numero en decimal
@@ -199,23 +224,24 @@ class Enemy{
         ctx.fillText(this.randomValue, this.x+20, this.y + 200);
 
         // Datos del tutorial
+        ctx.fillStyle = "#c2edc0";
         ctx.font = `20px ${fuente}`
         // ctx.textAlign = "center"
         if(this.randomValue === 0){
-            ctx.fillText("deja todos ", this.x+200, this.y + 200);
-            ctx.fillText("   los interruptures en OFF", this.x+200, this.y + 220);
+            ctx.fillText("deja todos ", this.x+200, this.y + 230);
+            ctx.fillText("   los interruptures en OFF", this.x+200, this.y + 250);
         } else if(this.randomValue === 1){
-            ctx.fillText("Pon unicamente el ", this.x+200, this.y + 200);
-            ctx.fillText("    switch que tiene el 1 en ON", this.x+200, this.y + 220);
+            ctx.fillText("Pon unicamente el ", this.x+200, this.y + 230);
+            ctx.fillText("    switch que tiene el 1 en ON", this.x+200, this.y + 250);
         } else if(this.randomValue === 2){
-            ctx.fillText("Pon unicamente el", this.x+200, this.y + 200);
-            ctx.fillText("    switch que tiene el 2 en ON", this.x+200, this.y + 220);
+            ctx.fillText("Pon unicamente el", this.x+200, this.y + 230);
+            ctx.fillText("    switch que tiene el 2 en ON", this.x+200, this.y + 250);
         } else if(this.randomValue === 3){
-            ctx.fillText("Pon el switch que ", this.x+200, this.y + 200);
-            ctx.fillText("  tiene el 2 y el 1 en ON", this.x+200, this.y + 220);
+            ctx.fillText("Pon el switch que ", this.x+200, this.y + 230);
+            ctx.fillText("  tiene el 2 y el 1 en ON", this.x+200, this.y + 250);
         }  else if(this.randomValue === 4){
-            ctx.fillText("Pon unicamente el ", this.x+200, this.y + 200);
-            ctx.fillText("    switch que tiene el 4 en ON", this.x+200, this.y + 220);
+            ctx.fillText("Pon unicamente el ", this.x+200, this.y + 230);
+            ctx.fillText("    switch que tiene el 4 en ON", this.x+200, this.y + 250);
         }
 
     }
@@ -229,6 +255,9 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     rectangle.draw();
     rectangle.update();
+
+    tutorialVersion1.play();
+    tutorialVersion1.volume = 0.1;
     if( (posBinarios.uno === 1) && (rectangle.randomValue === posBinarios.uno) ){
         console.log("binario");
 
