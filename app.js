@@ -75,7 +75,7 @@ const bat = new Image();
 bat.src = "Assets/enemy1.png"
 
 const fondo = new Image();
-fondo.src = "Assets/Fondo300.png";
+fondo.src = "Assets/fondo300.png";
 
 // Sonido
 const gamePlay = new Audio();
@@ -149,11 +149,11 @@ class Enemy{
         ctx.drawImage(fondo,
             0,
             0,
-            300,
-            214,
+            900,
+            642,
             0,
             0,
-            canvas.width, 
+            canvas.width,
             canvas.height);
 
         ctx.drawImage(bat, 
