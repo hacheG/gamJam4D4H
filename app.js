@@ -69,13 +69,17 @@ const gifPerro = new Image();
 gifPerro.src = "Assets/perroMov.gif";
 
 const perrito = new Image();
-perrito.src = "Assets/spritesPerro.png";
+perrito.src = "Assets/spritePerroVerde.png";
 
 const bat = new Image();
 bat.src = "Assets/enemy1.png"
 
 const fondo = new Image();
 fondo.src = "Assets/Fondo72.png";
+
+// Sonido
+const gamePlay = new Audio();
+gamePlay.src = "Sonido/GameplayVer1.mp3";
 
 class Enemy{
     constructor(){
@@ -101,7 +105,7 @@ class Enemy{
     }
 
     update(){
-        if(gameFrame % 3 === 0){
+        if(gameFrame % 10 === 0){
             this.frame > 4 ? this.frame = 0 : this.frame++;
             this.frameDog > 6 ? this.frameDog = 0 : this.frameDog++;
         }
@@ -215,9 +219,9 @@ class Enemy{
             this.dogWidth, 
             this.dogHeight,
             550,
-            390,
-            50,
-            80);
+            350,
+            70,
+            120);
         ctx.strokeRect(550, 420, 50, 50);
 
         // numero en decimal
@@ -240,7 +244,8 @@ function animate(){
     rectangle.draw();
     rectangle.update();
     gameFrame++;
-
+    gamePlay.play();
+    gamePlay.volume = 0.1
     if( (posBinarios.uno === 1) && (rectangle.randomValue === posBinarios.uno) ){
         console.log("binario");
 
