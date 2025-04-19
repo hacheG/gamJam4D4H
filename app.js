@@ -49,7 +49,7 @@ function dibujaCuadro(){
     equis = 40;
     for(let i = conteo; i > 0; i--){
         // Dibujando los cuadros que representan la cantidad de paredes que faltan
-        ctx2.fillStyle = "#F0F0F0";
+        ctx2.fillStyle = "#c2edc0";
         ctx2.fillRect(equis,5,20,20);
         equis +=30;
 
