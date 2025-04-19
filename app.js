@@ -75,7 +75,7 @@ const bat = new Image();
 bat.src = "Assets/enemy1.png"
 
 const fondo = new Image();
-fondo.src = "Assets/Fondo72.png";
+fondo.src = "Assets/Fondo300.png";
 
 // Sonido
 const gamePlay = new Audio();
