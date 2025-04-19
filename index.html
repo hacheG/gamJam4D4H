@@ -59,7 +59,7 @@
             display: block;
             text-align: center;
             margin: 0 auto;
-            width: 600px;
+            width: 500px;
         }
 
         .switche{
@@ -76,6 +76,9 @@
     <!-- <div class="switche">off</div> -->
     <audio src="Sonido/menuDeInicioVer1.mp3" loop autoplay></audio>
     <a href="instruccion.html">iniciar</a>
-
+    <script>
+        const sonido = document.querySelector("audio");
+        sonido.volume = 0.1;
+    </script>
 </body>
 </html>
