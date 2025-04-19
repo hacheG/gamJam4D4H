@@ -69,10 +69,13 @@ const gifPerro = new Image();
 gifPerro.src = "Assets/perroMov.gif";
 
 const perrito = new Image();
-perrito.src = "Assets/spritePerroVerde.png";
+perrito.src = "Assets/spritePerroVerde2.png";
 
 const bat = new Image();
-bat.src = "Assets/enemy1.png"
+bat.src = "Assets/enemy1.png";
+
+const barra = new Image();
+barra.src = "Assets/Barra.png";
 
 const fondo = new Image();
 fondo.src = "Assets/fondo300.png";
@@ -99,15 +102,15 @@ class Enemy{
         this.frameDog = 0;
         this.dogX = 0;
         this.dogY = 0;
-        this.dogWidth = 6112/8;
-        this.dogHeight = 1284;
+        this.dogWidth = 7258/19;
+        this.dogHeight = 642;
 
     }
 
     update(){
         if(gameFrame % 10 === 0){
             this.frame > 4 ? this.frame = 0 : this.frame++;
-            this.frameDog > 6 ? this.frameDog = 0 : this.frameDog++;
+            this.frameDog > 17 ? this.frameDog = 0 : this.frameDog++;
         }
         
         
@@ -202,14 +205,26 @@ class Enemy{
         // ctx.restore();
         // }
         // ctx.strokeRect(20, 450, 10, 10);
+
         // Pared movil
         ctx.strokeStyle = "blueViolet";
         ctx.strokeRect(this.x, this.y, 45, 400);
+        ctx.drawImage(barra,
+            0,
+            0,
+            302,
+            1284,
+            this.x,
+            this.y,
+            85,
+            400
+        );
 
         // punto de respaw
         this.signalX = spawn;
 
         // punto de inicio de la pared
+        ctx.fillStyle = "#8cff00";
         ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
 
         // ubicacion del personaje
@@ -227,7 +242,14 @@ class Enemy{
         // numero en decimal
         ctx.font = `30px ${fuente}`;
         ctx.textAlign = "center";
-        ctx.fillText(this.randomValue, this.x+20, this.y + 200);
+        ctx.fillStyle = "#09250f";
+        ctx.fillText(this.randomValue, this.x+26, this.y + 200);
+        ctx.fillStyle = "#8cff00";
+        ctx.fillText("_", this.x+26, this.y + 205);
+        ctx.strokeStyle = "#000";
+        ctx.strokeText("_", this.x+29, this.y + 205);
+        ctx.strokeStyle = "#000";
+        ctx.strokeText(this.randomValue, this.x+24, this.y + 200);
 
     }
 
@@ -303,7 +325,7 @@ boton.addEventListener("click", () => {
         
     } else {
         console.log("NO iguales");
-        spawn += 30;
+        spawn += 70;
         rectangle.x = spawn;
     }
 });
