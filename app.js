@@ -71,6 +71,9 @@ gifPerro.src = "Assets/perroMov.gif";
 const perrito = new Image();
 perrito.src = "Assets/spritePerroVerde2.png";
 
+const gato = new Image();
+gato.src = "Assets/spritesGatoPerfil.png";
+
 const bat = new Image();
 bat.src = "Assets/enemy1.png";
 
@@ -105,12 +108,20 @@ class Enemy{
         this.dogWidth = 7258/19;
         this.dogHeight = 642;
 
+        this.frameCat = 0;
+        this.catX = 0;
+        this.catY = 0;
+        this.catWidth = 4928/4;
+        this.catHeight = 1284;
+
+
     }
 
     update(){
         if(gameFrame % 10 === 0){
             this.frame > 4 ? this.frame = 0 : this.frame++;
             this.frameDog > 17 ? this.frameDog = 0 : this.frameDog++;
+            this.frameCat > 2 ? this.frameCat = 0 : this.frameCat++;
         }
         
         
@@ -159,33 +170,34 @@ class Enemy{
             canvas.width,
             canvas.height);
 
-        ctx.drawImage(bat, 
-            this.enemyWidth * this.frame, 
-            this.enemyY, 
-            this.enemyWidth, 
-            this.enemyHeight, 
-            550, 
-            70, 
-            100, 
-            50);
-        ctx.drawImage(bat, 
-            this.enemyWidth * this.frame, 
-            this.enemyY, 
-            this.enemyWidth, 
-            this.enemyHeight, 
-            150, 
-            40, 
-            50, 
-            25);
-        ctx.drawImage(bat, 
-            this.enemyWidth * this.frame, 
-            this.enemyY, 
-            this.enemyWidth, 
-            this.enemyHeight, 
-            190, 
-            55, 
-            50, 
-            25)
+        // ctx.drawImage(bat, 
+        //     this.enemyWidth * this.frame, 
+        //     this.enemyY, 
+        //     this.enemyWidth, 
+        //     this.enemyHeight, 
+        //     550, 
+        //     70, 
+        //     100, 
+        //     50);
+        // ctx.drawImage(bat, 
+        //     this.enemyWidth * this.frame, 
+        //     this.enemyY, 
+        //     this.enemyWidth, 
+        //     this.enemyHeight, 
+        //     150, 
+        //     40, 
+        //     50, 
+        //     25);
+        // ctx.drawImage(bat, 
+        //     this.enemyWidth * this.frame, 
+        //     this.enemyY, 
+        //     this.enemyWidth, 
+        //     this.enemyHeight, 
+        //     190, 
+        //     55, 
+        //     50, 
+        //     25)
+
         // ctx.drawImage(logoUN, this.x, this.y, 100, 100);
         // cantidad de paredes que faltan
         // ctx.fillText(conteo, 650, 30);
@@ -215,9 +227,9 @@ class Enemy{
             302,
             1284,
             this.x,
-            this.y,
+            this.y -10,
             85,
-            400
+            420
         );
 
         // punto de respaw
@@ -225,7 +237,17 @@ class Enemy{
 
         // punto de inicio de la pared
         ctx.fillStyle = "#8cff00";
-        ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
+        // ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
+        ctx.drawImage(gato,
+            this.catWidth * this.frameCat,
+            this.catY,
+            this.catWidth,
+            this.catHeight,
+            this.signalX - 245,
+            this.signalY + 180,
+            250,
+            250
+        );
 
         // ubicacion del personaje
         ctx.drawImage(perrito, 
