@@ -16,6 +16,7 @@ let cuadro = 20;
 const fuente = "Silkscreen";
 let gameFrame = 0;
 let ghostFrame = 0;
+let catdesinflado = 0;
 
 let estado = 0;
 
@@ -162,8 +163,11 @@ class Enemy{
 
         if(ghostFrame % 10 === 0 && estado == 2){
             this.frameWin > 2 ? this.frameWin = 0 : this.frameWin++;
+            // this.frameCatLose > 16 ? this.frameCatLose = 0 : this.frameCatLose++;
+        }
+
+        if(catdesinflado % 18 === 0 && estado == 2){
             this.frameCatLose > 16 ? this.frameCatLose = 0 : this.frameCatLose++;
-            
         }
 
         if (estado === 0){
@@ -196,6 +200,7 @@ class Enemy{
         if(conteo === 0){
             //gameWin = true;
             ghostFrame++;
+            catdesinflado++;
             estado = 2;
             ctx2.font = `100px ${fuente}`;
             ctx2.fillStyle = "blue";
@@ -203,7 +208,7 @@ class Enemy{
             setTimeout(() => {
                 const anchor = document.querySelector(".ganaste");
                 anchor.click()
-            }, 3000);
+            }, 5000);
         }
     }
 
