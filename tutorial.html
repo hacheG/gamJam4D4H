@@ -157,6 +157,9 @@ fondo.src = "Assets/fondo300.png";
 const perritoMira = new Image();
 perritoMira.src = "Assets/perritoMira.png";
 
+const gato = new Image();
+gato.src = "Assets/spritesGatoPerfil.png";
+
 // Sonido
 const tutorialVersion1 = new Audio();
 tutorialVersion1.src = "Sonido/tutorialVer1.mp3";
@@ -170,6 +173,12 @@ class Enemy{
 
         this.signalX = this.x;
         this.signalY = this.y;
+
+        this.frameCat = 0;
+        this.catX = 0;
+        this.catY = 0;
+        this.catWidth = 4928/4;
+        this.catHeight = 1284;
 
     }
 
@@ -204,24 +213,33 @@ class Enemy{
     
         // Pared movil
         ctx.strokeStyle = "blueViolet";
-        ctx.strokeRect(this.x, this.y, 45, 400);
+        // ctx.strokeRect(this.x, this.y, 45, 400);
         ctx.drawImage(barra,
             0,
             0,
             302,
             1284,
             this.x,
-            this.y,
+            this.y -10,
             85,
-            400
+            420
         );
 
         // punto de respaw
         this.signalX = spawn;
 
         // punto de inicio de la pared
-        ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
-
+        // ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
+        ctx.drawImage(gato,
+            this.catWidth * this.frameCat,
+            this.catY,
+            this.catWidth,
+            this.catHeight,
+            this.signalX - 245,
+            this.signalY + 180,
+            250,
+            250
+        );
         // ubicacion del personaje
         ctx.drawImage(perritoMira,
             500,

@@ -96,11 +96,11 @@ class Enemy{
         this.signalX = this.x;
         this.signalY = this.y;
 
-        this.frame = 0;
-        this.enemyX = 0;
-        this.enemyY = 0;
-        this.enemyWidth = 1758/6;
-        this.enemyHeight = 155;
+        // this.frame = 0;
+        // this.enemyX = 0;
+        // this.enemyY = 0;
+        // this.enemyWidth = 1758/6;
+        // this.enemyHeight = 155;
         
         this.frameDog = 0;
         this.dogX = 0;
@@ -220,7 +220,7 @@ class Enemy{
 
         // Pared movil
         ctx.strokeStyle = "blueViolet";
-        ctx.strokeRect(this.x, this.y, 45, 400);
+        // ctx.strokeRect(this.x, this.y, 45, 400);
         ctx.drawImage(barra,
             0,
             0,
@@ -259,7 +259,7 @@ class Enemy{
             350,
             70,
             120);
-        ctx.strokeRect(550, 420, 50, 50);
+        // ctx.strokeRect(550, 420, 50, 50);
 
         // numero en decimal
         ctx.font = `30px ${fuente}`;
