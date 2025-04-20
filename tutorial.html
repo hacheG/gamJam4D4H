@@ -11,6 +11,10 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <title>4D4H</title>
     <style>
+        @font-face {
+            font-family: gordita;
+            src: url(Assets/04b_30/04B_30__.TTF);
+        }
         html {
             box-sizing: border-box;
             font-family: "Silkscreen", sans-serif;
@@ -24,6 +28,7 @@
 
         a{
             text-decoration: none;
+            color: green;
         }
         
         .silkscreen-regular {
@@ -40,7 +45,8 @@
             
         #my-canvas{
             border: 1px solid black;
-            /* position: absolute; */
+            position: absolute;
+            z-index: -999;
         }
 
         .container-binary{
@@ -91,6 +97,7 @@
 </head>
 <body>
     <canvas id="my-canvas"></canvas>
+    <canvas id="my-canvas2"></canvas>
     <div class="container-binary">
         <!-- <div id="binary" class="treintaydos">off</div>
         <div id="binary" class="dieciseis">off</div>
@@ -123,7 +130,8 @@
     cuatro : 0,
 }
 let gameOver = false;
-const fuente = "Silkscreen";
+const fuente2 = "Silkscreen";
+const fuente = "gordita";
 
 const binary = document.querySelectorAll("#binary");
 
@@ -139,11 +147,13 @@ binary.forEach( (div) => {
     })
 })
 
-const canvas = document.querySelector("#my-canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const canvas2 = document.querySelector("#my-canvas");
+const ctx = canvas2.getContext("2d");
+canvas2.width = 700;
+canvas2.height = 500;
 
+const canvas = document.querySelector("#my-canvas2");
+const ctx2 = canvas.getContext("2d");
 canvas.width = 700;
 canvas.height = 500;
 
@@ -163,7 +173,7 @@ gato.src = "Assets/spritesGatoPerfil.png";
 // Sonido
 const tutorialVersion1 = new Audio();
 tutorialVersion1.src = "Sonido/tutorialVer1.mp3";
-
+// ctx.font = `100px ${fuente2}`
 // Enemy
 class Enemy{
     constructor(){
@@ -189,17 +199,24 @@ class Enemy{
         // Collider para el game over
         if(this.x >= 500){
             gameOver = true;
-            ctx.font = `100px ${fuente}`
-            ctx.fillStyle = "red";
-            ctx.fillText("GAME OVER", 350, 250);
+            // ctx.save();
+            ctx2.font = `100px ${fuente2}`
+            ctx2.fillStyle = "#8cff00";
+            ctx2.fillText("GAME OVER", 40, 250);
+            ctx2.strokeStyle = "#000";
+            ctx2.strokeText("GAME OVER", 40, 250);
+            const seleccionar = document.querySelector(".container-button button");
+            seleccionar.style = "visibility: hidden";
+            // ctx.restore();
             setTimeout(() => {
                 const anchor = document.querySelector(".instruction");
                 anchor.click()
-            }, 2000);
+            }, 4000);
         }
     }
 
     draw() {
+        
         // Fondo
         ctx.drawImage(fondo,
             0,
@@ -243,14 +260,14 @@ class Enemy{
         // ubicacion del personaje
         ctx.drawImage(perritoMira,
             500,
-            310,
+            340,
             380,
-            270
+            220
         );
-        ctx.strokeRect(550, 350, 50, 50);
+        // ctx.strokeRect(550, 350, 50, 50);
 
         // numero en decimal
-        ctx.font = `30px ${fuente}`;
+        ctx.font = `30px ${fuente2}`;
         ctx.textAlign = "center";
         ctx.fillStyle = "#09250f";
         ctx.fillText(this.randomValue, this.x+26, this.y + 200);
@@ -263,7 +280,7 @@ class Enemy{
 
         // Datos del tutorial
         ctx.fillStyle = "#c2edc0";
-        ctx.font = `20px ${fuente}`
+        ctx.font = `20px ${fuente2}`
         // ctx.textAlign = "center"
         if(this.randomValue === 0){
             ctx.fillText("deja todos ", this.x+200, this.y + 230);
@@ -281,6 +298,7 @@ class Enemy{
             ctx.fillText("Pon unicamente el ", this.x+200, this.y + 230);
             ctx.fillText("         switch que tiene el 4 en ON", this.x+200, this.y + 250);
         }
+
 
     }
 

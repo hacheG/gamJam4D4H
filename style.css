@@ -53,6 +53,7 @@ html {
     /* border: 1px solid blue; */
     width: 700px;
     text-align: center;
+    /* visibility: hidden; */
 }
 
 .container-number{

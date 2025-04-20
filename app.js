@@ -105,8 +105,8 @@ class Enemy{
     constructor(){
         this.x = 10;
         this.y = 60;
-        // this.randomValue = Math.floor(Math.random() * 63);
-        this.randomValue = Math.floor(Math.random() * 1);
+        this.randomValue = Math.floor(Math.random() * 63);
+        // this.randomValue = Math.floor(Math.random() * 1);
 
         this.signalX = this.x;
         this.signalY = this.y;
@@ -157,11 +157,11 @@ class Enemy{
             // this.frameGhost > 10 ? this.frameGhost = 4 : this.frameGhost++;
         }
         
-        if(ghostFrame % 10 === 0 && estado == 1){
+        if(ghostFrame % 15 === 0 && estado == 1){
             this.frameGhost > 10 ? this.frameGhost = 0 : this.frameGhost++;
         }
 
-        if(ghostFrame % 10 === 0 && estado == 2){
+        if(ghostFrame % 18 === 0 && estado == 2){
             this.frameWin > 2 ? this.frameWin = 0 : this.frameWin++;
             // this.frameCatLose > 16 ? this.frameCatLose = 0 : this.frameCatLose++;
         }
@@ -183,8 +183,13 @@ class Enemy{
             estado = 1;
             // gameOver = true;
             ctx2.font = `100px ${fuente}`;
-            ctx2.fillStyle = "red";
+            ctx2.fillStyle = "#8cff00";
             ctx2.fillText("GAME OVER", 50, 250);
+            ctx2.strokeStyle = "#000";
+            ctx2.strokeText("GAME OVER", 50, 250);
+            const seleccionar = document.querySelector(".container-button");
+            seleccionar.style = "visibility: hidden";
+
             setTimeout(() => {
                 const anchor = document.querySelector(".gameOver");
                 anchor.click()
@@ -194,7 +199,7 @@ class Enemy{
                 // history.pushState(null,"",newURL);
                 // location.reload();
                 
-            }, 2000);
+            }, 3000);
         }
 
         if(conteo === 0){
@@ -203,8 +208,12 @@ class Enemy{
             catdesinflado++;
             estado = 2;
             ctx2.font = `100px ${fuente}`;
-            ctx2.fillStyle = "blue";
+            ctx2.fillStyle = "#8cff00";
             ctx2.fillText("GANASTE", 50, 250);
+            ctx2.strokeStyle = "#000";
+            ctx2.strokeText("GANASTE", 50, 250);
+            const seleccionar = document.querySelector(".container-button");
+            seleccionar.style = "visibility: hidden";
             setTimeout(() => {
                 const anchor = document.querySelector(".ganaste");
                 anchor.click()
@@ -482,8 +491,8 @@ boton.addEventListener("click", () => {
     if (sumaBinaria === rectangle.randomValue){
         console.log("iguales");
         spawn += 10;
-        // rectangle.randomValue = Math.floor(Math.random() * 63);
-        rectangle.randomValue = Math.floor(Math.random() * 1);
+        rectangle.randomValue = Math.floor(Math.random() * 63);
+        // rectangle.randomValue = Math.floor(Math.random() * 1);
         console.log("spawn", spawn);
         rectangle.x = spawn;
         conteo--
