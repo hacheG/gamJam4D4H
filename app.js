@@ -14,6 +14,7 @@ let conteo = 10;
 let cuadro = 20;
 const fuente = "Silkscreen";
 let gameFrame = 0;
+let ghostFrame = 0;
 
 const binary = document.querySelectorAll("#binary");
 
@@ -71,6 +72,9 @@ gifPerro.src = "Assets/perroMov.gif";
 const perrito = new Image();
 perrito.src = "Assets/spritePerroVerde2.png";
 
+const ghost = new Image();
+ghost.src = "Assets/spritesPerroFantasma.png";
+
 const gato = new Image();
 gato.src = "Assets/spritesGatoPerfil.png";
 
@@ -114,6 +118,12 @@ class Enemy{
         this.catWidth = 4928/4;
         this.catHeight = 1284;
 
+        this.frameGhost = 0;
+        this.ghostX = 0;
+        this.ghostY = 0;
+        this.ghostWidth = 9168/12;
+        this.ghostHeight = 1284;
+
 
     }
 
@@ -122,15 +132,22 @@ class Enemy{
             this.frame > 4 ? this.frame = 0 : this.frame++;
             this.frameDog > 17 ? this.frameDog = 0 : this.frameDog++;
             this.frameCat > 2 ? this.frameCat = 0 : this.frameCat++;
+            // this.frameGhost > 10 ? this.frameGhost = 4 : this.frameGhost++;
         }
         
-        
+        if(ghostFrame % 10 === 0 && gameOver == true){
+            this.frameGhost > 10 ? this.frameGhost = 0 : this.frameGhost++;
+        }
+
         this.x = this.x + 0.2;
         // console.log("la X: ",this.x);
         
         // Collider para el game over
         if(this.x >= 500){
             console.log("LOSE...");
+            ghostFrame++;
+            console.log(ghostFrame);
+            
             gameOver = true;
             ctx.font = `100px ${fuente}`;
             ctx.fillStyle = "red";
@@ -144,7 +161,7 @@ class Enemy{
                 // history.pushState(null,"",newURL);
                 // location.reload();
                 
-            }, 3000);
+            }, 2000);
         }
 
         if(conteo === 0){
@@ -250,16 +267,28 @@ class Enemy{
         );
 
         // ubicacion del personaje
-        ctx.drawImage(perrito, 
-            this.dogWidth * this.frameDog, 
-            this.dogY, 
-            this.dogWidth, 
-            this.dogHeight,
-            550,
-            350,
-            70,
-            120);
-        // ctx.strokeRect(550, 420, 50, 50);
+        if(gameOver === false){
+            ctx.drawImage(perrito, 
+                this.dogWidth * this.frameDog, 
+                this.dogY, 
+                this.dogWidth, 
+                this.dogHeight,
+                550,
+                350,
+                70,
+                120);
+            }else if(gameOver === true){
+            ctx.drawImage(ghost, 
+                this.ghostWidth * this.frameGhost, 
+                this.ghostY, 
+                this.ghostWidth, 
+                this.ghostHeight,
+                550,
+                350,
+                70,
+                120);
+            }
+            // ctx.strokeRect(550, 420, 50, 50);
 
         // numero en decimal
         ctx.font = `30px ${fuente}`;
@@ -285,8 +314,8 @@ let spawn = 10;
 
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    rectangle.draw();
     rectangle.update();
+    rectangle.draw();
     gameFrame++;
     gamePlay.play();
     gamePlay.volume = 0.1
@@ -324,7 +353,7 @@ function animate(){
     if(gameOver === false){
         requestAnimationFrame(animate)
     } else {
-        requestAnimationFrame()
+        requestAnimationFrame(animate)
     }
 };
 
