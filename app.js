@@ -24,12 +24,18 @@ const binary = document.querySelectorAll("#binary");
 
 binary.forEach( (div) => {
     div.addEventListener("click", (e) => {
-        if (div.textContent == "off"){
-            div.textContent = "on";
-            posBinarios[e.target.className] = 1;
+        // console.log(e.target.classList);
+        
+        if (div.classList.contains("off") ){
+            div.classList.add("on");
+            div.classList.remove("off");
+            // div.textContent = "on";
+            posBinarios[e.target.classList[0]] = 1;
         } else {
-            div.textContent = "off";
-            posBinarios[e.target.className] = 0;
+            // div.textContent = "off";
+            div.classList.add("off");
+            div.classList.remove("on");
+            posBinarios[e.target.classList[0]] = 0;
         }
     })
 })
@@ -435,8 +441,8 @@ function animate(){
 
     }
     
-    // console.log(`${posBinarios.dieciseis} ${posBinarios.ocho} ${posBinarios.cuatro} ${posBinarios.dos} ${posBinarios.uno}`);
-    // console.log((posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0)));
+    // console.log(`${posBinarios.treintaydos} ${posBinarios.dieciseis} ${posBinarios.ocho} ${posBinarios.cuatro} ${posBinarios.dos} ${posBinarios.uno}`);
+    // console.log( (posBinarios.treintaydos * (2**5)) + (posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0)));
 
     sumaBinaria = (posBinarios.treintaydos * (2**5) + posBinarios.dieciseis * (2**4)) + (posBinarios.ocho * (2**3)) + (posBinarios.cuatro * (2**2)) + (posBinarios.dos * (2**1)) + (posBinarios.uno * (2**0))
     // console.log("sumaBinaria",sumaBinaria);
@@ -460,7 +466,7 @@ function animate(){
     
     
 
-
+// requestAnimationFrame()
     if(gameOver === false){
         requestAnimationFrame(animate)
     } else if (gameOver === true || gameWin === true){

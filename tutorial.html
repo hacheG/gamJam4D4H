@@ -26,10 +26,7 @@
             box-sizing: inherit;
         }
 
-        a{
-            text-decoration: none;
-            color: green;
-        }
+        
         
         .silkscreen-regular {
             font-family: "Silkscreen", sans-serif;
@@ -59,7 +56,7 @@
         }
 
         #binary{
-            border: 1px solid green;
+            /* border: 1px solid green; */
             width: 50px;
             height: 50px;
             text-align: center;
@@ -78,7 +75,7 @@
         }
 
         .container-number{
-            border: 1px solid green;
+            /* border: 1px solid green; */
             width: 700px;
             display: flex;
             flex-direction: row;
@@ -89,9 +86,78 @@
             font-style: normal;
         }
 
-        button{
+        .seleccionar{
             font-family: "Silkscreen", sans-serif;
             font-size: 20px;
+            color: #c2edc0;
+            background-color: #035507;
+            /* background-color: #338541; */
+            box-shadow: 1px 3px #09250f ;
+            /* box-shadow: 10px 5px #8cff00; */
+            border-radius: 30px;
+        }
+
+        .seleccionar:hover{
+            background-color: #04790a;
+            /* background-color: #13eb37; */
+        }
+
+        .seleccionar:active{
+            box-shadow: 0.5px 1.5px #09250f ;
+            background-color: #b6e3bd;
+            color: #035507;
+        }
+
+        a{
+            text-decoration: none;
+            font-family: "Silkscreen", sans-serif;
+            font-size: 20px;
+            color: #c2edc0;
+        }
+
+        .preparado{
+            background-color: #04790a;
+            border-radius: 30px;
+            box-shadow: 1px 3px #09250f ;
+
+        }
+
+        .preparado:hover{
+            background-color: #035507;
+            /* background-color: #13eb37; */
+        }
+
+        .preparado:active,
+        .preparado a:active{
+            box-shadow: 0.5px 1.5px #09250f ;
+            background-color: #35aa2c;
+            color: #035507;
+        }
+
+        .off{
+            /* opacity: 0; */
+            background-image: url(Assets/OFF.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 108px;
+            height: 108px; 
+            /* border: 1px solid red; */
+            /* background-color: aqua; */
+            /* color: transparent; */
+            color: blue;
+        }
+
+        .on{
+            /* opacity: 0; */
+            background-image: url(Assets/ON.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 108px;
+            height: 108px; 
+            /* border: 1px solid red; */
+            /* background-color: aqua; */
+            /* color: transparent; */
+            color: red;
         }
     </style>
 </head>
@@ -102,9 +168,9 @@
         <!-- <div id="binary" class="treintaydos">off</div>
         <div id="binary" class="dieciseis">off</div>
         <div id="binary" class="ocho">off</div> -->
-        <div id="binary" class="cuatro">off</div>
-        <div id="binary" class="dos">off</div>
-        <div id="binary" class="uno">off</div>
+        <div id="binary" class="cuatro off"></div>
+        <div id="binary" class="dos off"></div>
+        <div id="binary" class="uno off"></div>
     </div>
     <div class="container-number">
         <!-- <div class="numero">32</div>
@@ -115,8 +181,8 @@
         <div class="numero">1</div>
     </div>
     <div class="container-button">
-        <button>seleccionar</button>
-        <button><a href="game.html">Estoy Preparado</a></button>
+        <button class="seleccionar" >seleccionar</button>
+        <button class="preparado" ><a href="game.html">Estoy Preparado</a></button>
         <a class="instruction" href="instruccion.html"></a>
     </div>
     <a href="gameOver.html"></a>
@@ -137,12 +203,16 @@ const binary = document.querySelectorAll("#binary");
 
 binary.forEach( (div) => {
     div.addEventListener("click", (e) => {
-        if (div.textContent == "off"){
-            div.textContent = "on";
-            posBinarios[e.target.className] = 1;
+        if (div.classList.contains("off") ){
+            div.classList.add("on");
+            div.classList.remove("off");
+            // div.textContent = "on";
+            posBinarios[e.target.classList[0]] = 1;
         } else {
-            div.textContent = "off";
-            posBinarios[e.target.className] = 0;
+            // div.textContent = "off";
+            div.classList.add("off");
+            div.classList.remove("on");
+            posBinarios[e.target.classList[0]] = 0;
         }
     })
 })
@@ -315,7 +385,7 @@ function animate(){
     tutorialVersion1.play();
     tutorialVersion1.volume = 0.1;
     if( (posBinarios.uno === 1) && (rectangle.randomValue === posBinarios.uno) ){
-        console.log("binario");
+        // console.log("binario");
 
     }
     
@@ -336,13 +406,13 @@ function animate(){
 const boton = document.querySelector("button");
 boton.addEventListener("click", () => {
     if (sumaBinaria === rectangle.randomValue){
-        console.log("iguales");
+        // console.log("iguales");
         spawn += 10;
         rectangle.randomValue = Math.floor(Math.random() * 5);
-        console.log("spawn", spawn);
+        // console.log("spawn", spawn);
         rectangle.x = spawn;
     } else {
-        console.log("NO iguales");
+        // console.log("NO iguales");
         spawn += 70;
         rectangle.x = spawn;
     }
