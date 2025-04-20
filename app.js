@@ -10,11 +10,14 @@
 };
 
 let gameOver = false;
+let gameWin = false;
 let conteo = 10;
 let cuadro = 20;
 const fuente = "Silkscreen";
 let gameFrame = 0;
 let ghostFrame = 0;
+
+let estado = 0;
 
 const binary = document.querySelectorAll("#binary");
 
@@ -75,8 +78,14 @@ perrito.src = "Assets/spritePerroVerde2.png";
 const ghost = new Image();
 ghost.src = "Assets/spritesPerroFantasma.png";
 
+const ganador = new Image();
+ganador.src = "Assets/spritesPerroGanador.png";
+
 const gato = new Image();
 gato.src = "Assets/spritesGatoPerfil.png";
+
+const catLose = new Image();
+catLose.src = "Assets/spritesGatoPerdedor.png";
 
 const bat = new Image();
 bat.src = "Assets/enemy1.png";
@@ -95,7 +104,8 @@ class Enemy{
     constructor(){
         this.x = 10;
         this.y = 60;
-        this.randomValue = Math.floor(Math.random() * 63);
+        // this.randomValue = Math.floor(Math.random() * 63);
+        this.randomValue = Math.floor(Math.random() * 1);
 
         this.signalX = this.x;
         this.signalY = this.y;
@@ -124,6 +134,17 @@ class Enemy{
         this.ghostWidth = 9168/12;
         this.ghostHeight = 1284;
 
+        this.frameWin = 0;
+        this.winX = 0;
+        this.winY = 0;
+        this.winWidth = 3056/4 ;
+        this.winHeight = 1284;
+
+        this.frameCatLose = 0;
+        this.catLoseX = 0;
+        this.catLoseY = 0;
+        this.catLoseWidth = 22176/18 ;
+        this.catLoseHeight = 1284;
 
     }
 
@@ -135,11 +156,17 @@ class Enemy{
             // this.frameGhost > 10 ? this.frameGhost = 4 : this.frameGhost++;
         }
         
-        if(ghostFrame % 10 === 0 && gameOver == true){
+        if(ghostFrame % 10 === 0 && estado == 1){
             this.frameGhost > 10 ? this.frameGhost = 0 : this.frameGhost++;
         }
 
-        this.x = this.x + 0.2;
+        if(ghostFrame % 10 === 0 && estado == 2){
+            this.frameWin > 2 ? this.frameWin = 0 : this.frameWin++;
+        }
+
+        if (estado === 0){
+            this.x = this.x + 0.2;
+        }
         // console.log("la X: ",this.x);
         
         // Collider para el game over
@@ -147,11 +174,11 @@ class Enemy{
             console.log("LOSE...");
             ghostFrame++;
             console.log(ghostFrame);
-            
-            gameOver = true;
-            ctx.font = `100px ${fuente}`;
-            ctx.fillStyle = "red";
-            ctx.fillText("GAME OVER", 350, 250);
+            estado = 1;
+            // gameOver = true;
+            ctx2.font = `100px ${fuente}`;
+            ctx2.fillStyle = "red";
+            ctx2.fillText("GAME OVER", 50, 250);
             setTimeout(() => {
                 const anchor = document.querySelector(".gameOver");
                 anchor.click()
@@ -165,10 +192,12 @@ class Enemy{
         }
 
         if(conteo === 0){
-            gameOver = true;
-            ctx.font = `100px ${fuente}`;
-            ctx.fillStyle = "blue";
-            ctx.fillText("GANASTE", 350, 250);
+            //gameWin = true;
+            ghostFrame++;
+            estado = 2;
+            ctx2.font = `100px ${fuente}`;
+            ctx2.fillStyle = "blue";
+            ctx2.fillText("GANASTE", 50, 250);
             setTimeout(() => {
                 const anchor = document.querySelector(".ganaste");
                 anchor.click()
@@ -255,38 +284,87 @@ class Enemy{
         // punto de inicio de la pared
         ctx.fillStyle = "#8cff00";
         // ctx.fillRect(this.signalX, this.signalY +125, 10, 100);
-        ctx.drawImage(gato,
-            this.catWidth * this.frameCat,
-            this.catY,
-            this.catWidth,
-            this.catHeight,
-            this.signalX - 245,
-            this.signalY + 180,
-            250,
-            250
-        );
+        // ctx.drawImage(gato,
+        //     this.catWidth * this.frameCat,
+        //     this.catY,
+        //     this.catWidth,
+        //     this.catHeight,
+        //     this.signalX - 245,
+        //     this.signalY + 180,
+        //     250,
+        //     250
+        // );
 
         // ubicacion del personaje
-        if(gameOver === false){
-            ctx.drawImage(perrito, 
-                this.dogWidth * this.frameDog, 
-                this.dogY, 
-                this.dogWidth, 
-                this.dogHeight,
-                550,
-                350,
-                70,
-                120);
-            }else if(gameOver === true){
-            ctx.drawImage(ghost, 
-                this.ghostWidth * this.frameGhost, 
-                this.ghostY, 
-                this.ghostWidth, 
-                this.ghostHeight,
-                550,
-                350,
-                70,
-                120);
+        // if(gameOver === false){
+        //     ctx.drawImage(perrito, 
+        //         this.dogWidth * this.frameDog, 
+        //         this.dogY, 
+        //         this.dogWidth, 
+        //         this.dogHeight,
+        //         550,
+        //         350,
+        //         70,
+        //         120);
+        //     }else if(gameOver === true){
+        //     ctx.drawImage(ghost, 
+        //         this.ghostWidth * this.frameGhost, 
+        //         this.ghostY, 
+        //         this.ghostWidth, 
+        //         this.ghostHeight,
+        //         550,
+        //         350,
+        //         70,
+        //         120);
+        //     }
+            switch (estado) {
+                case 0:
+                    ctx.drawImage(perrito, 
+                        this.dogWidth * this.frameDog, 
+                        this.dogY, 
+                        this.dogWidth, 
+                        this.dogHeight,
+                        550,
+                        350,
+                        70,
+                        120);
+                    ctx.drawImage(gato,
+                        this.catWidth * this.frameCat,
+                        this.catY,
+                        this.catWidth,
+                        this.catHeight,
+                        this.signalX - 245,
+                        this.signalY + 180,
+                        250,
+                        250);
+                    break;
+                case 1:
+                    ctx.drawImage(ghost, 
+                        this.ghostWidth * this.frameGhost, 
+                        this.ghostY, 
+                        this.ghostWidth, 
+                        this.ghostHeight,
+                        550,
+                        350,
+                        70,
+                        120);
+                    ;
+                    break;
+                case 2:
+                    ctx.drawImage(ganador,
+                        this.winWidth * this.frameWin,
+                        this.winY,
+                        this.winWidth,
+                        this.winHeight,
+                        550,
+                        350,
+                        70,
+                        120);
+                    break;
+
+            
+                default:
+                    break;
             }
             // ctx.strokeRect(550, 420, 50, 50);
 
@@ -352,9 +430,22 @@ function animate(){
 
     if(gameOver === false){
         requestAnimationFrame(animate)
-    } else {
+    } else if (gameOver === true || gameWin === true){
         requestAnimationFrame(animate)
+        setTimeout(() => {
+            requestAnimationFrame()
+            
+        }, 3000);
     }
+    
+    if(gameWin === true){
+        gameOver = true
+        console.log("gane con trampa");
+        
+        requestAnimationFrame()
+    }
+
+
 };
 
 // Dibujando la cantidad de paredes
@@ -367,7 +458,8 @@ boton.addEventListener("click", () => {
     if (sumaBinaria === rectangle.randomValue){
         console.log("iguales");
         spawn += 10;
-        rectangle.randomValue = Math.floor(Math.random() * 63);
+        // rectangle.randomValue = Math.floor(Math.random() * 63);
+        rectangle.randomValue = Math.floor(Math.random() * 1);
         console.log("spawn", spawn);
         rectangle.x = spawn;
         conteo--
