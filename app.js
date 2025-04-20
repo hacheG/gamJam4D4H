@@ -162,6 +162,8 @@ class Enemy{
 
         if(ghostFrame % 10 === 0 && estado == 2){
             this.frameWin > 2 ? this.frameWin = 0 : this.frameWin++;
+            this.frameCatLose > 16 ? this.frameCatLose = 0 : this.frameCatLose++;
+            
         }
 
         if (estado === 0){
@@ -348,7 +350,15 @@ class Enemy{
                         350,
                         70,
                         120);
-                    ;
+                    ctx.drawImage(gato,
+                        this.catWidth * this.frameCat,
+                        this.catY,
+                        this.catWidth,
+                        this.catHeight,
+                        this.signalX - 245,
+                        this.signalY + 180,
+                        250,
+                        250);
                     break;
                 case 2:
                     ctx.drawImage(ganador,
@@ -360,6 +370,15 @@ class Enemy{
                         350,
                         70,
                         120);
+                    ctx.drawImage(catLose,
+                        this.catLoseWidth * this.frameCatLose,
+                        this.catLoseY,
+                        this.catLoseWidth,
+                        this.catLoseHeight,
+                        this.signalX - 245,
+                        this.signalY + 180,
+                        250,
+                        250);
                     break;
 
             
