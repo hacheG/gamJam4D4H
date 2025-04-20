@@ -30,16 +30,34 @@
             color: green;
         }
 
-        .link-intruccion{
+        /* .link-intruccion{
             display: flex;
             justify-content: space-evenly;
-        }
+        } */
 
         img{
             /* border: 1px solid white; */
             display: block;
             /* margin: 0 auto; */
             width: 740px;
+        }
+
+        .tutorial{
+            position: absolute;
+            left: 150px;
+            top: 420px;
+            width: 230px;
+            border: 10px solid red;
+            opacity: 0;
+        }
+
+        .saltar{
+            position: absolute;
+            left: 470px;
+            top: 420px;
+            border: 10px solid red;
+            width: 100px;
+            opacity: 0;
         }
     </style>
     <title>Document</title>
@@ -48,8 +66,8 @@
     <img src="Assets/Aviso Importante.png" alt="">
 
     <div class="link-intruccion"> 
-        <a href="tutorial.html">Ir a tutorial</a>
-        <a href="game.html">saltar</a>
+        <a class="tutorial" href="tutorial.html">Ir a tutorial</a>
+        <a class="saltar" href="game.html">saltar</a>
     </div>
 </body>
 </html>
